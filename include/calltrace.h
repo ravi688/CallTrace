@@ -1,11 +1,11 @@
 
 #pragma once
 
-#ifdef GLOBAL_DEBUG
+#if defined(GLOBAL_DEBUG) && !defined(CALLTRACE_DEBUG) 
 #define CALLTRACE_DEBUG
 #endif
 
-#ifdef GLOBAL_RELEASE
+#if defined(GLOBAL_RELEASE) && !defined(CALLTRACE_RELEASE)
 #define CALLTRACE_RELEASE
 #endif
 
@@ -14,7 +14,7 @@
 #	define CALLTRACE_DEBUG
 #elif defined(CALLTRACE_DEBUG) && defined(CALLTRACE_RELEASE)
 #	warning "Both of CALLTRACE_DEBUG and CALLTRACE_RELEASE are defined; using CALLTRACE_DEBUG"
-#	define CALLTRACE_RELEASE
+#	undef CALLTRACE_RELEASE
 #endif
 
 #ifdef CALLTRACE_DEBUG
