@@ -43,6 +43,8 @@ void calltrace_init();
 void calltrace_terminate();
 void calltrace_buffer_push(callinfo_t info);
 void calltrace_buffer_pop();
+void calltrace_log();
+const char* calltrace_string();
 
 #ifdef CALLTRACE_DEBUG
 #define CALLTRACE_BEGIN() calltrace_buffer_push((callinfo_t) { __line__, __function__, __file__ })
