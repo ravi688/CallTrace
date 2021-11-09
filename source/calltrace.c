@@ -1,13 +1,18 @@
 
 #include <calltrace/calltrace.h>
-#include <calltrace/debug.h>
 #include <calltrace/buffer.h>
+#include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static void* calltrace_buffer = NULL;
 static void* strbuffer = NULL;
+
+#ifdef CALLTRACE_DEBUG
+__attribute__((constructor)) void initialize_calltrace() { calltrace_init(); }
+__attribute__((destructor)) void terminate_calltrace() { calltrace_terminate(); }
+#endif
 
 void calltrace_buffer_push(callinfo_t info)
 {
@@ -63,3 +68,50 @@ const char* calltrace_string()
 	}
 	return (char*)strbuffer;
 }
+
+#ifdef CALLTRACE_DEBUG
+function_signature(void, log_msg, const char* format, ...)
+{
+	CALLTRACE_BEGIN();
+	va_list args; 
+	printf("[Log]: ");
+	va_start(args, format);
+	vprintf(format, args);
+	va_end(args);
+	puts(calltrace_string());
+	CALLTRACE_END();
+}
+function_signature(void, log_err, const char* format, ...)
+{
+	CALLTRACE_BEGIN();
+	va_list args; 
+	printf("[Error]: ");
+	va_start(args, format);
+	vprintf(format, args);
+	va_end(args);
+	puts(calltrace_string());
+	CALLTRACE_END();
+}
+function_signature(void, log_wrn, const char* format, ...)
+{
+	CALLTRACE_BEGIN();
+	va_list args; 
+	printf("[Warning]: ");
+	va_start(args, format);
+	vprintf(format, args);
+	va_end(args);
+	puts(calltrace_string());
+	CALLTRACE_END();
+}
+function_signature(void, log_fetal_err, const char* format, ...)
+{
+	CALLTRACE_BEGIN();
+	va_list args;
+	printf("[Fetal Error]: ");
+	va_start(args, format);
+	vprintf(format, args);
+	va_end(args);
+	puts(calltrace_string());
+	CALLTRACE_END();
+}
+#endif

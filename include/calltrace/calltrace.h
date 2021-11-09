@@ -53,3 +53,32 @@ const char* calltrace_string();
 #define CALLTRACE_BEGIN()
 #define CALLTRACE_END()
 #endif
+
+
+#ifdef CALLTRACE_DEBUG
+    function_signature(void, log_err, const char* format, ...);
+    function_signature(void, log_wrn, const char* format, ...);
+    function_signature(void, log_fetal_err, const char* format, ...);
+    function_signature(void, log_msg, const char* format, ...);
+#	ifdef log_err
+#		undef log_err
+#   endif
+#	ifdef log_wrn
+#		undef log_wrn
+#   endif
+#	ifdef log_fetal_err
+#		undef log_fetal_err
+#   endif
+#	ifdef log_msg
+#		undef log_msg
+#   endif
+#   define log_err(...) define_alias_function_macro(log_err, __VA_ARGS__)
+#   define log_wrn(...) define_alias_function_macro(log_wrn, __VA_ARGS__)
+#   define log_fetal_err(...) define_alias_function_macro(log_fetal_err, __VA_ARGS__)
+#   define log_msg(...) define_alias_function_macro(log_msg, __VA_ARGS__)
+#else
+#   define log_err(...)
+#   define log_wrn(...)
+#   define log_fatal_err(...)
+#   define log_msg(...)
+#endif

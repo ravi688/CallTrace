@@ -1,5 +1,5 @@
 #include <calltrace/buffer.h>
-#include <calltrace/debug.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 
@@ -60,9 +60,12 @@ void buffer_clear(void* buffer)
 }
 void buffer_destroy(void* buffer)
 {
-#if defined(CALLTRACE_DEBUG) && defined(LOG_DEBUG)
+#if defined(CALLTRACE_DEBUG)
 	if((buffer - BUFFER_OFFSET) == NULL)
-		log_wrn("(buffer - BUFFER_OFFSET) == NULL, make sure to call calltrace_init first!");
+	{
+		printf("[Error]: (buffer - BUFFER_OFFSET) == NULL, make sure to call calltrace_init first!");
+		exit(0);
+	}
 #endif
 	free(buffer - BUFFER_OFFSET);
 }
