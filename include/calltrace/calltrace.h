@@ -53,7 +53,7 @@ const char* calltrace_string();
 #elif defined(CALLTRACE_RELEASE)
 #define CALLTRACE_BEGIN()
 #define CALLTRACE_END()
-#define CALLTRACE_RETURN(...)
+#define CALLTRACE_RETURN(...) return __VA_ARGS__
 #endif
 
 
