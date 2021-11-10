@@ -49,8 +49,7 @@ const char* calltrace_string();
 #ifdef CALLTRACE_DEBUG
 #define CALLTRACE_BEGIN() calltrace_buffer_push((callinfo_t) { __line__, __function__, __file__ })
 #define CALLTRACE_END() calltrace_buffer_pop()
-#define CALLTRACE_RETURN(type, x) do { type calltrace_return_value = x; CALLTRACE_END(); return calltrace_return_value; } while(0)
-#define CALLTRACE_RETURN_VOID() do { CALLTRACE_END(); return; } while(0)
+#define CALLTRACE_RETURN(...) do { CALLTRACE_END(); return __VA_ARGS__; } while(0)
 #elif defined(CALLTRACE_RELEASE)
 #define CALLTRACE_BEGIN()
 #define CALLTRACE_END()
