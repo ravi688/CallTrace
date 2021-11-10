@@ -113,5 +113,6 @@ function_signature(void, log_fetal_err, const char* format, ...)
 	va_end(args);
 	puts(calltrace_string());
 	CALLTRACE_END();
+	exit(0);
 }
 #endif

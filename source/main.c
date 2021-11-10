@@ -40,7 +40,7 @@ function_signature_void(void, function3)
 
 	function2();
 
-	CALLTRACE_END();
+	CALLTRACE_RETURN();
 }
 
 int main(int argc, char** argv)
