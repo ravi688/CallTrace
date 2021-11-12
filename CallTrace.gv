@@ -1,0 +1,10 @@
+
+
+digraph CallTrace {
+
+	#define digraph subgraph
+	//includes are here
+	#undef digraph
+
+	CallTrace;
+}
