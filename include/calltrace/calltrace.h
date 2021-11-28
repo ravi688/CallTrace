@@ -81,6 +81,6 @@ const char* calltrace_string();
 #else
 #   define log_err(...)
 #   define log_wrn(...)
-#   define log_fatal_err(...)
+#   define log_fetal_err(...)
 #   define log_msg(...)
 #endif
