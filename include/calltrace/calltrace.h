@@ -22,11 +22,21 @@
 #	define function_signature(return_type, function_name, ...)  return_type __##function_name(uint64_t __line__, const char* __function__, const char* __file__, __VA_ARGS__)
 #	define define_alias_function_void_macro(function_name) __##function_name(__LINE__, __FUNCTION__, __FILE__)
 #	define define_alias_function_macro(function_name, ...) __##function_name(__LINE__, __FUNCTION__, __FILE__, __VA_ARGS__)
+#   define func_ptr_params(return_type, function_name, ...) return_type (*__##function_name)(uint64_t, uint64_t, uint64_t, __VA_ARGS__)
+#   define func_ptr_no_params(return_type, function_name) return_type (*__##function_name)(uint64_t, uint64_t, uint64_t)
+#   define func_ptr(function_name) __##function_name
+#   define params(...) (__LINE__, __FUNCTION__, __FILE__, __VA_ARGS__)
+#   define no_params() (__LINE__, __FUNCTION__, __FILE__)
 #elif defined(CALLTRACE_RELEASE)
 #	define function_signature_void(return_type, function_name) return_type function_name()
 #	define function_signature(return_type, function_name, ...) return_type function_name(__VA_ARGS__)
 #	define define_alias_function_macro(function_name, ...) function_name(__VA_ARGS__)
 #	define define_alias_function_void_macro(function_name) function_name()
+#   define func_ptr_params(return_type, function_name, ...) return_type (*function_name)(__VA_ARGS__)
+#   define func_ptr_no_params(return_type, function_name) return_type (*function_name)(void)
+#   define func_ptr(function_name) function_name
+#   define params(...) (__VA_ARGS__)
+#   define no_params() ()
 #endif
 
 
