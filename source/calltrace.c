@@ -40,6 +40,13 @@ void calltrace_terminate()
 
 void calltrace_log()
 {
+	#ifdef CALLTRACE_DEBUG
+	if(calltrace_buffer == NULL)
+	{
+		puts("[Warning] calltrace library isn't initialized, message from calltrace_log");
+	 	return;
+	}
+	#endif
 	printf(
 		"calltrace_log:\n"
 		"count: %u\n"
@@ -53,6 +60,13 @@ void calltrace_log()
 
 const char* calltrace_string()
 {
+	#ifdef CALLTRACE_DEBUG
+	if(strbuffer == NULL)
+	{
+		puts("[Warning] calltrace library isn't initialized, message from calltrace_string");
+		return "";
+	}
+	#endif
 	buffer_clear(strbuffer);
 	callinfo_t* buffer = (callinfo_t*)calltrace_buffer;
 	const char* callTraceString = "CallTrace:\n";
