@@ -3,6 +3,10 @@
 
 #include <calltrace/defines.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define buffer_capacity(buffer) (*__buffer_capacity(buffer))
 #define buffer_count(buffer) (*__buffer_count(buffer))
 #define buffer_element_size(buffer) (*__buffer_element_size(buffer))
@@ -17,3 +21,8 @@ void* buffer_init();
 void buffer_clear(void* buffer);
 void buffer_destroy(void* buffer);
 void buffer_pop(void* buffer);
+
+
+#ifdef __cplusplus
+}
+#endif
