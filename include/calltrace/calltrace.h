@@ -53,6 +53,10 @@ Getting Started:
 */
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(GLOBAL_DEBUG) && !defined(CALLTRACE_DEBUG) 
 #define CALLTRACE_DEBUG
 #endif
@@ -321,3 +325,8 @@ const char* calltrace_string();
 #   define log_fetal_err(...)
 #   define log_msg(...)
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
