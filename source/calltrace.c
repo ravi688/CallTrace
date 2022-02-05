@@ -10,27 +10,27 @@ static void* calltrace_buffer = NULL;
 static void* strbuffer = NULL;
 
 #ifdef CALLTRACE_DEBUG
-__attribute__((constructor)) void initialize_calltrace() { calltrace_init(); }
-__attribute__((destructor)) void terminate_calltrace() { calltrace_terminate(); }
+__attribute__((constructor)) static void initialize_calltrace() { calltrace_init(); }
+__attribute__((destructor)) static void terminate_calltrace() { calltrace_terminate(); }
 #endif
 
-void calltrace_buffer_push(callinfo_t info)
+CALLTRACE_API void calltrace_buffer_push(callinfo_t info)
 {
 	calltrace_buffer = buffer_push(calltrace_buffer, &info);
 }
 
-void calltrace_buffer_pop()
+CALLTRACE_API void calltrace_buffer_pop()
 {
 	buffer_pop(calltrace_buffer);
 }
 
-void calltrace_init()
+CALLTRACE_API void calltrace_init()
 {
 	calltrace_buffer = buffer_init(sizeof(callinfo_t));
 	strbuffer = buffer_init(sizeof(char));
 }
 
-void calltrace_terminate()
+CALLTRACE_API void calltrace_terminate()
 { 
 	buffer_destroy(calltrace_buffer); 
 	buffer_destroy(strbuffer); 
@@ -38,7 +38,7 @@ void calltrace_terminate()
 	strbuffer = NULL;
 }
 
-void calltrace_log()
+CALLTRACE_API void calltrace_log()
 {
 	#ifdef CALLTRACE_DEBUG
 	if(calltrace_buffer == NULL)
@@ -58,7 +58,7 @@ void calltrace_log()
 	);
 } 
 
-const char* calltrace_string()
+CALLTRACE_API const char* calltrace_string()
 {
 	#ifdef CALLTRACE_DEBUG
 	if(strbuffer == NULL)
@@ -84,7 +84,7 @@ const char* calltrace_string()
 }
 
 #ifdef CALLTRACE_DEBUG
-function_signature(void, log_msg, const char* format, ...)
+CALLTRACE_API function_signature(void, log_msg, const char* format, ...)
 {
 	CALLTRACE_BEGIN();
 	va_list args; 
@@ -95,7 +95,7 @@ function_signature(void, log_msg, const char* format, ...)
 	puts(calltrace_string());
 	CALLTRACE_END();
 }
-function_signature(void, log_err, const char* format, ...)
+CALLTRACE_API function_signature(void, log_err, const char* format, ...)
 {
 	CALLTRACE_BEGIN();
 	va_list args; 
@@ -106,7 +106,7 @@ function_signature(void, log_err, const char* format, ...)
 	puts(calltrace_string());
 	CALLTRACE_END();
 }
-function_signature(void, log_wrn, const char* format, ...)
+CALLTRACE_API function_signature(void, log_wrn, const char* format, ...)
 {
 	CALLTRACE_BEGIN();
 	va_list args; 
@@ -117,7 +117,7 @@ function_signature(void, log_wrn, const char* format, ...)
 	puts(calltrace_string());
 	CALLTRACE_END();
 }
-function_signature(void, log_fetal_err, const char* format, ...)
+CALLTRACE_API function_signature(void, log_fetal_err, const char* format, ...)
 {
 	CALLTRACE_BEGIN();
 	va_list args;

@@ -119,7 +119,7 @@ typedef struct
  *      2. Calling calltrace_init() multiple times results in completely new stacktrace and stacktrace log string buffers, and it doesn't frees the previous buffers!
  *      3. If you want to reinitialize the library then you should terminate the first initialization and then call calltrace_init() again.
  */
-void calltrace_init();
+CALLTRACE_API void calltrace_init();
 
 /* calltrace_terminate():
  * PARAMS:
@@ -135,7 +135,7 @@ void calltrace_init();
  *      1. If GLOBAL_DEBUG is defined the calltrace library is terminated automatically (using __attribute__((destructor)))
  *      2. Calling calltrace_terminate() multiple times results in a crash!      
  */
-void calltrace_terminate();
+CALLTRACE_API void calltrace_terminate();
 
 /* calltrace_buffer_push(callinfo_t info):
  * DESCRIPTION:
@@ -153,7 +153,7 @@ void calltrace_terminate();
  *      1. Call to this function (calltrace_buffer_push) must be paired with calltrace_buffer_pop()
  *      2. This function must be called at the beginning of a function, though it is not mandatory
  */
-void calltrace_buffer_push(callinfo_t info);
+CALLTRACE_API void calltrace_buffer_push(callinfo_t info);
 
 /* calltrace_buffer_pop(callinfo_t info):
  * DESCRIPTION:
@@ -170,7 +170,7 @@ void calltrace_buffer_push(callinfo_t info);
  *      1. Call to this function (calltrace_buffer_pop) must be paired with calltrace_buffer_push()
  *      2. This function must be called at the end of a function, though it is not mandatory
  */
-void calltrace_buffer_pop();
+CALLTRACE_API void calltrace_buffer_pop();
 
 /* calltrace_log():
  * DESCRIPTION:
@@ -186,7 +186,7 @@ void calltrace_buffer_pop();
  * NOTE: 
  *      1. It doesn't crashes the program if library isn't initialized first, writes a warning on the standard output instead.
  */
-void calltrace_log();
+CALLTRACE_API void calltrace_log();
 
 /* calltrace_string():
  * DESCRIPTION:
@@ -205,7 +205,7 @@ void calltrace_log();
  *      2. If you call this function (calltrace_string) without initializing the library (by calling calltrace_init()) then it write an warning message on stdout.
  *      3. The returned buffer shouldn't be freed, it is being handled by the library itself (when you call calltrace_terminate())
  */
-const char* calltrace_string();
+CALLTRACE_API const char* calltrace_string();
 
 #ifdef CALLTRACE_DEBUG
 #define CALLTRACE_BEGIN() calltrace_buffer_push((callinfo_t) { __line__, __function__, __file__ })
@@ -238,7 +238,7 @@ const char* calltrace_string();
  *      //outputs [Error]: Something bad happened with someone
  *
  */
-    function_signature(void, log_err, const char* format, ...);
+CALLTRACE_API function_signature(void, log_err, const char* format, ...);
 
 /* log_wrn(const char* format, ...):
  * DESCRIPTION:
@@ -259,7 +259,7 @@ const char* calltrace_string();
  *      //outputs [Warning]: Something vunerable with someone
  *
  */
-    function_signature(void, log_wrn, const char* format, ...);
+CALLTRACE_API function_signature(void, log_wrn, const char* format, ...);
 
 /* log_fetal_err(const char* format, ...):
  * DESCRIPTION:
@@ -281,7 +281,7 @@ const char* calltrace_string();
  *      //outputs [Fetal Error]: Something very bad happened with someone
  *
  */
-    function_signature(void, log_fetal_err, const char* format, ...);
+CALLTRACE_API function_signature(void, log_fetal_err, const char* format, ...);
 
 /* log_msg(const char* format, ...):
  * DESCRIPTION:
@@ -302,7 +302,7 @@ const char* calltrace_string();
  *      //outputs [Log]: Object ID: 12321413
  *
  */
-    function_signature(void, log_msg, const char* format, ...);
+CALLTRACE_API function_signature(void, log_msg, const char* format, ...);
 #	ifdef log_err
 #		undef log_err
 #   endif
