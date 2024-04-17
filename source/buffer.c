@@ -26,9 +26,9 @@ CALLTRACE_API void buffer_log(void* buffer)
 {
 	printf(
 		"Buffer:\n"
-		"\tcount: %u\n"
-		"\tcapacity: %u\n"
-		"\telement_size: %u\n",
+		"\tcount: %lu\n"
+		"\tcapacity: %lu\n"
+		"\telement_size: %lu\n",
 		buffer_count(buffer),
 		buffer_capacity(buffer),
 		buffer_element_size(buffer)

@@ -49,9 +49,9 @@ CALLTRACE_API void calltrace_log()
 	#endif
 	printf(
 		"calltrace_log:\n"
-		"count: %u\n"
-		"capacity: %u\n"
-		"element size: %u\n",
+		"count: %lu\n"
+		"capacity: %lu\n"
+		"element size: %lu\n",
 		buffer_count(calltrace_buffer), 
 		buffer_capacity(calltrace_buffer), 
 		buffer_element_size(calltrace_buffer)
@@ -77,7 +77,7 @@ CALLTRACE_API const char* calltrace_string()
 	for(u64 i = 0; i < buffer_count(calltrace_buffer); i++)
 	{
 		strbuffer = buffer_ensure_capacity(strbuffer, buffer_count(strbuffer) + strlen(buffer[i].functionName) + strlen(buffer[i].fileName) + 11 + 32);
-		sprintf(strbuffer + buffer_count(strbuffer), "\tline: %u, function: %s, file: %s\n", buffer[i].lineNo, buffer[i].functionName, buffer[i].fileName);
+		sprintf(strbuffer + buffer_count(strbuffer), "\tline: %lu, function: %s, file: %s\n", buffer[i].lineNo, buffer[i].functionName, buffer[i].fileName);
 		buffer_count(strbuffer) += strlen(strbuffer + buffer_count(strbuffer));
 	}
 	return (char*)strbuffer;
