@@ -1,7 +1,7 @@
 # CallTrace
 
 CallTrace is a small function call hierarchy generation library
-## Building
+## Building and Installing
 ### Release build
 ```
  $ meson setup --wipe <builddir> # wipe the build artifacts (like object files)
