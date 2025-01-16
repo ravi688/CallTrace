@@ -53,24 +53,10 @@ Getting Started:
 */
 #pragma once
 
+#include <calltrace/defines.h>
+
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#if defined(GLOBAL_DEBUG) && !defined(CALLTRACE_DEBUG) 
-#define CALLTRACE_DEBUG
-#endif
-
-#if defined(GLOBAL_RELEASE) && !defined(CALLTRACE_RELEASE)
-#define CALLTRACE_RELEASE
-#endif
-
-#if !defined(CALLTRACE_DEBUG) && !defined(CALLTRACE_RELEASE)
-#	warning "None of CALLTRACE_DEBUG or CALLTRACE_RELEASE is defined; using CALLTRACE_DEBUG"
-#	define CALLTRACE_DEBUG
-#elif defined(CALLTRACE_DEBUG) && defined(CALLTRACE_RELEASE)
-#	warning "Both of CALLTRACE_DEBUG and CALLTRACE_RELEASE are defined; using CALLTRACE_DEBUG"
-#	undef CALLTRACE_RELEASE
 #endif
 
 #ifdef CALLTRACE_DEBUG
@@ -98,9 +84,6 @@ extern "C" {
 #   define params(...) (__VA_ARGS__0)
 #   define no_params() ()
 #endif
-
-//for u64
-#include <calltrace/defines.h>
 
 typedef struct 
 {
