@@ -49,16 +49,12 @@ project('CallTrace', 'c', 'cpp',
 
 # Release Build Defines
 release_defines = [
-  '-DGLOBAL_RELEASE', 
-  '-DRELEASE',
-  '-DLOG_RELEASE'
+  '-DCALLTRACE_RELEASE'
 ]
 
 # Debug Build Defines
 debug_defines = [
-  '-DGLOBAL_DEBUG',
-  '-DDEBUG',
-  '-DLOG_DEBUG'
+  '-DCALLTRACE_DEBUG'
 ]
 
 # Shared Library Build Defines
