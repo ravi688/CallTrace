@@ -92,12 +92,15 @@ add_project_link_arguments('-m64', language : 'c')
 add_project_link_arguments('-m64', language : 'cpp')
 
 # Build type specific defines
+build_mode_defines = []
 if get_option('buildtype') == 'release'
   add_project_arguments(release_defines, language : 'c')
   add_project_arguments(release_defines, language : 'cpp')
+  build_mode_defines += release_defines
 else
   add_project_arguments(debug_defines, language : 'c')
   add_project_arguments(debug_defines, language : 'cpp')
+  build_mode_defines += debug_defines
 endif
 
 # Static Library
@@ -157,4 +160,10 @@ pkgmod.generate(calltrace_shared_lib,
     description: 'A function call trace library',
     filebase: 'calltrace_shared',
     install_dir: pkgconfig_install_path
+)
+
+calltrace_dep = declare_dependency(
+    link_with: calltrace_static_lib,
+    include_directories: inc,
+    compile_args: build_mode_defines
 )
