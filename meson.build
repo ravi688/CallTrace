@@ -58,13 +58,23 @@ debug_defines = [
 ]
 
 # Shared Library Build Defines
-shared_library_defines = [
+shared_library_build_defines = [
   '-DCALLTRACE_BUILD_DYNAMIC_LIBRARY'
 ]
 
+# Shared Library Use Defines
+shared_library_use_defines = [
+  '-DCALLTRACE_USE_DYNAMIC_LIBRARY'
+]
+
 # Static Library Build Defines
-static_library_defines = [
+static_library_build_defines = [
   '-DCALLTRACE_BUILD_STATIC_LIBRARY'
+]
+
+# Static Library Use Defines
+static_library_use_defines = [
+  '-DCALLTRACE_USE_STATIC_LIBRARY'
 ]
 
 # Source files (excluding main.c)
@@ -109,8 +119,8 @@ calltrace_static_lib = static_library('calltrace_static',
   include_directories : inc,
   install : true,
   install_dir : get_option('libdir')/'calltrace',
-  c_args : static_library_defines,
-  cpp_args : static_library_defines,
+  c_args : static_library_build_defines,
+  cpp_args : static_library_build_defines,
   gnu_symbol_visibility: 'hidden'
 )
 
@@ -120,8 +130,8 @@ calltrace_shared_lib = shared_library('calltrace_shared',
   include_directories : inc,
   install : true,
   install_dir : get_option('libdir')/'calltrace',
-  c_args : shared_library_defines,
-  cpp_args : shared_library_defines,
+  c_args : shared_library_build_defines,
+  cpp_args : shared_library_build_defines,
   gnu_symbol_visibility: 'hidden'
 )
 
@@ -152,18 +162,20 @@ pkgmod.generate(calltrace_static_lib,
     name: 'CallTrace',
     description: 'A function call trace library',
     filebase: 'calltrace_static',
-    install_dir: pkgconfig_install_path
+    install_dir: pkgconfig_install_path,
+    extra_cflags: static_library_use_defines + build_mode_defines
 )
 # Generate .pc file for shared library
 pkgmod.generate(calltrace_shared_lib,
     name: 'CallTrace',
     description: 'A function call trace library',
     filebase: 'calltrace_shared',
-    install_dir: pkgconfig_install_path
+    install_dir: pkgconfig_install_path,
+    extra_cflags: shared_library_use_defines + build_mode_defines
 )
 
 calltrace_dep = declare_dependency(
     link_with: calltrace_static_lib,
     include_directories: inc,
-    compile_args: build_mode_defines
+    compile_args: static_library_use_defines + build_mode_defines
 )
