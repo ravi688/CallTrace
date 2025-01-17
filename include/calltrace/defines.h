@@ -26,11 +26,11 @@ typedef int64_t s64;
 */
 
 #if (defined _WIN32 || defined __CYGWIN__) && defined(__GNUC__)
-#	define CALLTRACE_IMPORT_API __attribute__((visibility("default")))
-#	define CALLTRACE_EXPORT_API __attribute__((visibility("default")))
-#else
 #	define CALLTRACE_IMPORT_API __declspec(dllimport)
 #	define CALLTRACE_EXPORT_API __declspec(dllexport)
+#else
+#	define CALLTRACE_IMPORT_API __attribute__((visibility("default")))
+#	define CALLTRACE_EXPORT_API __attribute__((visibility("default")))
 #endif
 
 #ifdef CALLTRACE_BUILD_STATIC_LIBRARY
