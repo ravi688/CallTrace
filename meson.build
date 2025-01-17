@@ -149,12 +149,35 @@ install_subdir('include/calltrace', install_dir : get_option('includedir'))
 # pkg-config package installation
 python = find_program('python')
 
+# Try PKG_CONFIG_PATH first, typicallly it succeeds on MINGW64 (MSYS2)
 result = run_command(python, '-c', 'import os; print(os.environ["PKG_CONFIG_PATH"])', check : false)
 if result.returncode() == 0
-  pkgconfig_install_path = result.stdout().split(';')[0]
-else 
-  pkgconfig_install_path = get_option('libdir')
+  str = result.stdout()
+  # Unix
+  if str.startswith('/')
+    pkgconfig_install_path = str.replace(';', ':').split(':')[0]
+  # Windows
+  else
+    pkgconfig_install_path = str.replace(';', ':').split(':')[1]
+  endif
 endif
+if pkgconfig_install_path == ''
+  # Otherwise use pkg-config to query its lookup directories
+  message('PKG_CONFIG_PATH seems to be empty, trying another method')
+  result = run_command('pkg-config', '--variable', 'pc_path', 'pkg-config', check : false)
+  if result.returncode() == 0
+    str = result.stdout()
+    if str.startswith('/')
+      pkgconfig_install_path = str.replace(';', ':').split(':')[0]
+    else
+      pkgconfig_install_path = str.replace(';', ':').split(':')[1]
+    endif
+  # Finally if the above attempts fail, use 'libdir' value
+  else
+    pkgconfig_install_path = get_option('libdir')
+  endif
+endif
+message('pkg config path: ' + pkgconfig_install_path)
 
 pkgmod = import('pkgconfig')
 # Generate .pc file for static library 
