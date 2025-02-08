@@ -4,6 +4,7 @@
     "project_name": "CallTrace",
     "debug_defines" : [ "-DGLOBAL_DEBUG", "-DDEBUG", "-DLOG_DEBUG" ],
     "release_defines" : [ "-DGLOBAL_RELEASE", "-DRELEASE", "-DLOG_RELEASE" ],
+    "install_header_dirs" : [ "include/calltrace" ],
     "targets": [
         {
             "is_executable": true,
