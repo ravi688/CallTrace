@@ -22,7 +22,7 @@ typedef int64_t s64;
 		(NOTE: Need to be defined by a dependent project before including any of this library's headers)
 		UserCode Switches:
 			CALLTRACE_USE_STATIC_LIBRARY
-			CALLTRACE_USER_DYNAMIC_LIBRARY
+			CALLTRACE_USE_DYNAMIC_LIBRARY
 */
 
 #if (defined _WIN32 || defined __CYGWIN__) && defined(__GNUC__)
