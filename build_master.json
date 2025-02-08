@@ -1,0 +1,32 @@
+{
+    "canonical_name": "calltrace",
+    "include_dirs": "include",
+    "project_name": "CallTrace",
+    "debug_defines" : [ "-DGLOBAL_DEBUG", "-DDEBUG", "-DLOG_DEBUG" ],
+    "release_defines" : [ "-DGLOBAL_RELEASE", "-DRELEASE", "-DLOG_RELEASE" ],
+    "targets": [
+        {
+            "is_executable": true,
+            "name": "calltrace",
+            "sources": [
+                "source/main.c"
+            ]
+        },
+        {
+            "is_static_library" : true,
+            "name" : "calltrace_static",
+            "build_defines" : ["-DCALLTRACE_BUILD_STATIC_LIBARY"],
+            "use_defines" : ["-DCALLTRACE_USE_STATIC_LIBRARY"]
+        },
+        {
+            "is_shared_library" : true,
+            "name" : "calltrace_shared",
+            "build_defines" : ["-DCALLTRACE_BUILD_DYNAMIC_LIBRARY"],
+            "use_defines" : ["-DCALLTRACE_USE_DYNAMIC_LIBRARY"]
+        }
+    ],
+    "sources" : [
+        "source/buffer.c",
+        "source/calltrace.c"
+    ]
+}
