@@ -2,8 +2,8 @@
     "canonical_name": "calltrace",
     "include_dirs": "include",
     "project_name": "CallTrace",
-    "debug_defines" : [ "-DGLOBAL_DEBUG", "-DDEBUG", "-DLOG_DEBUG" ],
-    "release_defines" : [ "-DGLOBAL_RELEASE", "-DRELEASE", "-DLOG_RELEASE" ],
+    "debug_defines" : [ "-DCALLTRACE_DEBUG", "-DLOG_DEBUG" ],
+    "release_defines" : [ "-DCALLTRACE_RELEASE", "-DLOG_RELEASE" ],
     "install_header_dirs" : [ "include/calltrace" ],
     "targets": [
         {
