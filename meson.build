@@ -52,12 +52,12 @@ project('CallTrace', 'c', 'cpp',
 
 # Release Build Defines
 release_defines = [
-'-DGLOBAL_RELEASE', '-DRELEASE', '-DLOG_RELEASE'
+'-DCALLTRACE_RELEASE', '-DLOG_RELEASE'
 ] 
 
 # Debug Build Defines
 debug_defines = [
-'-DGLOBAL_DEBUG', '-DDEBUG', '-DLOG_DEBUG'
+'-DCALLTRACE_DEBUG', '-DLOG_DEBUG'
 ]
 
 # Source files (common to all targets)
